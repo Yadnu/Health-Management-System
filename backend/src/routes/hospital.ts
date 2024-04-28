@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 
-export const adminRouter =  new Hono<{
+
+export const hospitalRouter =  new Hono<{
     Bindings: {
         DATABASE_URL: string;
         JWT_SECRET: string;
