@@ -12,3 +12,38 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Patient{
+  id Int @id @default(autoincrement())
+  Name String
+  Contact String
+  Age Int 
+  Address String
+  Comorbidities String[]
+  AppointmentDates String[]
+  
+}
+
+model Hospital {
+  HId Int @id @default(autoincrement())
+  HospitalName String
+  location String
+  doctors DoctorsOnHospitals[]
+}
+
+model Doctor {
+  DId Int @id @default(autoincrement())
+  Name String
+  Speciality String
+  hospitals DoctorsOnHospitals[]
+}
+
+model DoctorsOnHospitals {
+  id      Int      @id @default(autoincrement())
+  doctor  Doctor   @relation(fields: [DoctorId], references: [DId])
+  DoctorId Int
+  hospital Hospital @relation(fields: [HospitalId], references: [HId])
+  HospitalId Int
+
+  @@unique([DoctorId, HospitalId]) // Adding a unique criterion
+}
