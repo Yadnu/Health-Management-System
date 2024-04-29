@@ -68,3 +68,8 @@ model Admin {
   Name String
   Password String
 }
+
+model Speciality {
+  SId Int @id @default(autoincrement())
+  Speciality String
+}
