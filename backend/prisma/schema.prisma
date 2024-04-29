@@ -16,6 +16,8 @@ datasource db {
 model Patient{
   id Int @id @default(autoincrement())
   Name String
+  Password String
+  UserType String @default("Patient")
   Contact String
   Age Int 
   Address String
@@ -27,13 +29,17 @@ model Patient{
 model Hospital {
   HId Int @id @default(autoincrement())
   HospitalName String
+  Password String
   location String
   doctors DoctorsOnHospitals[]
+  SupportStaffs SupportStaff[]
 }
 
 model Doctor {
   DId Int @id @default(autoincrement())
+  UserType String @default("Doctor")
   Name String
+  Password String
   Speciality String
   hospitals DoctorsOnHospitals[]
 }
@@ -46,4 +52,19 @@ model DoctorsOnHospitals {
   HospitalId Int
 
   @@unique([DoctorId, HospitalId]) // Adding a unique criterion
+}
+
+model SupportStaff {
+  SId Int @id @default(autoincrement())
+  Name String 
+  UserType String @default("Support Staff")
+  Password String
+  Designation String
+  Hospital Hospital? @relation(fields: [HospitalId], references: [HId])
+  HospitalId Int?
+}
+model Admin {
+  AId Int @id @default(autoincrement())
+  Name String
+  Password String
 }
