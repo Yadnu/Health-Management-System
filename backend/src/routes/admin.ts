@@ -49,3 +49,20 @@ adminRouter.post('/createdoctor',async (c) =>{
     });
    
 });
+
+adminRouter.post('/createsupportstaff', async (c) =>{
+    const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+    const body = await c.req.json();
+    const supportStaff = await prisma.supportStaff.create({
+        data:{
+            Name: body.Name,
+            Password: body.Password,
+            Designation: body.Designation
+            
+            
+        }
+    })
+
+})
